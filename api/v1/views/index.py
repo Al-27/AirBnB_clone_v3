@@ -11,8 +11,7 @@ def GetClass(classname):
     return the Class of the specified classname from the module
     """
     import importlib
-    module = importlib.import_module(
-        f"models.{'base_model' if classname == 'BaseModel' else classname.lower()}")
+    module = importlib.import_module(f"models.{'base_model' if classname == 'BaseModel' else classname.lower()}")
     ModelClass = getattr(module, classname)
     return ModelClass
 
