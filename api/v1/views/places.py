@@ -7,7 +7,7 @@ import models
 
 @app_views.route("/cities/<city_id>/places", methods=["GET","POST"], strict_slashes=False)
 def city_places_rout(city_id):
-    city = models.storage.all(models.city.City).get(city_id)
+    city = models.storage.all(models.city.City).get(f"City.{city_id}")
     
     if city is None:
         abort(404)
@@ -34,7 +34,9 @@ def city_places_rout(city_id):
         return jsonify(place.to_dict()), 201
 
 
-
+@app_views.route("/places/<place_id>",methods=["GET","DELETE","PUT"],strict_slashes=False)
+def places_route(place_id):
+    place = models.storage.all(models.place.Place).get(f"Place.{place_id}")
 
 """
 Retrieves a Place object. : GET /api/v1/places/<place_id>
