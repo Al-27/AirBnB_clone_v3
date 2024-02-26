@@ -1,15 +1,13 @@
 #!/usr/bin/python3
-""" 
- usrs doc
-"""
+""" usrs documentation """
 
 from api.v1.views import app_views
 from flask import jsonify, request, abort
 import models
  
 
-@app_views.route("/users", methods=["GET","POST"])
-@app_views.route("/users/<user_id>", methods=["GET","DELETE","PUT"])
+@app_views.route("/users", methods=["GET","POST"],strict_slashes=False)
+@app_views.route("/users/<user_id>", methods=["GET","DELETE","PUT"],strict_slashes=False)
 def users_route(user_id=None):
     
     if user_id is None:
@@ -24,8 +22,10 @@ def users_route(user_id=None):
             except Exception as e :
                 abort(400,{"error":"Not a JSON"})
             
-            if "name" not in req.keys():
-                abort(400,{"error":"Missing name"})
+            if "email" not in req.keys():
+                abort(400,{"error":"Missing email"})
+            if "password" not in req.keys():
+                abort(400,{"error":"Missing password"})
             
             user = models.user.User(**req)
             models.storage.new(user)
@@ -45,12 +45,7 @@ def users_route(user_id=None):
             try:
                 req = request.get_json()  
             except Exception as e :
-                abort(400,{"error":"Not a JSON"})
-            
-            if "email" not in req.keys():
-                abort(400,{"error":"Missing email"})
-            if "password" not in req.keys():
-                abort(400,{"error":"Missing password"})
+                abort(400,{"error":"Not a JSON"}) 
             
             for k,v in req.items():
                 user.__setattr__(k,v)

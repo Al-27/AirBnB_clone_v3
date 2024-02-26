@@ -5,8 +5,8 @@ from api.v1.views import app_views
 from flask import jsonify, request, abort
 import models
 
-@app_views.route("/states", methods=["GET","POST"])
-@app_views.route("/states/<state_id>", methods=["GET","DELETE","PUT"])
+@app_views.route("/states", methods=["GET","POST"],strict_slashes=False)
+@app_views.route("/states/<state_id>", methods=["GET","DELETE","PUT"],strict_slashes=False)
 def states_route(state_id=None):
     
     if state_id is None:
