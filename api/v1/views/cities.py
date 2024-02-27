@@ -37,6 +37,7 @@ def state_cities_route(state_id=None):
 
 @app_views.route("/cities/<city_id>", methods=["GET","PUT","DELETE"], strict_slashes=False)
 def cities_route(city_id):
+    """ str """
     city_id = f'City.{city_id}'
     city = models.storage.all(models.city.City).get(city_id)
     

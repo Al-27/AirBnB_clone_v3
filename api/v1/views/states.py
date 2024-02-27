@@ -8,7 +8,7 @@ import models
 @app_views.route("/states", methods=["GET","POST"],strict_slashes=False)
 @app_views.route("/states/<state_id>", methods=["GET","DELETE","PUT"],strict_slashes=False)
 def states_route(state_id=None):
-    
+    """ str """
     if state_id is None:
         if request.method == "GET":
             states = []

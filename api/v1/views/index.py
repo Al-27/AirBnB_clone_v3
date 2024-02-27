@@ -21,12 +21,14 @@ def home_route():
 
 @app_views.route("/status",strict_slashes=False)
 def status_route():
+    """ str """
     obj = {"status": "OK"}
     return jsonify(obj)
     
 
 @app_views.route("/stats", strict_slashes=False)
 def stats_route():
+    """ str """
     stats = {}
     for clas in classes:
         stats[clas] = models.storage.count(GetClass(clas))

@@ -9,7 +9,7 @@ import models
 @app_views.route("/users", methods=["GET","POST"],strict_slashes=False)
 @app_views.route("/users/<user_id>", methods=["GET","DELETE","PUT"],strict_slashes=False)
 def users_route(user_id=None):
-    
+    """ str """
     if user_id is None:
         if request.method == "GET":
             users = []
