@@ -33,8 +33,10 @@ def city_places_route(city_id):
             models.user.User).get(f'User.{req["user_id"]}')
         if user is None:
             abort(404)
-
+        
         place = models.place.Place(**req)
+        place.save()
+        
         return jsonify(place.to_dict()), 201
 
 
