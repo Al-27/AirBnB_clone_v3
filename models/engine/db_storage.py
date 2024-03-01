@@ -57,7 +57,7 @@ class DBStorage:
         except Exception:
             return None
         return obj
-    
+
     def new(self, obj):
         """add the object to the current database session"""
         self.__session.add(obj)
@@ -70,7 +70,7 @@ class DBStorage:
         """delete from the current database session obj if not None"""
         if obj is not None:
             self.__session.delete(obj)
-            
+
     def count(self, cls=None):
         return len(self.all(cls).keys())
 

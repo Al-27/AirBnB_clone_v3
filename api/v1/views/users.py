@@ -1,10 +1,8 @@
 #!/usr/bin/python3
-""" usrs """
-
+""" objects that handle all default RestFul API actions for Users """
 from api.v1.views import app_views
 from flask import jsonify, request, abort
 import models
-
 
 @app_views.route("/users", methods=["GET", "POST"], strict_slashes=False)
 @app_views.route("/users/<user_id>", methods=["GET", "DELETE", "PUT"], strict_slashes=False)
