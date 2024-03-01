@@ -1,39 +1,30 @@
 #!/usr/bin/python3
-""" indx """
+""" Index """
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
+from models import storage
 from api.v1.views import app_views
-from flask import jsonify, request
-import models
-
-classes = ["BaseModel", "User", "Place", "City", "Amenity", "Review", "State"]
+from flask import jsonify
 
 
-def GetClass(classname):
-    """
-    return the Class of the specified classname from the module
-    """
-    import importlib
-    module = importlib.import_module(
-        f"models.{'base_model' if classname == 'BaseModel' else classname.lower()}")
-    ModelClass = getattr(module, classname)
-    return ModelClass
+@app_views.route('/status', methods=['GET'], strict_slashes=False)
+def status():
+    """ Status of API """
+    return jsonify({"status": "OK"})
 
 
-@app_views.route("/")
-def home_route():
-    return ""
+@app_views.route('/stats', methods=['GET'], strict_slashes=False)
+def number_objects():
+    """ Retrieves the number of each objects by type """
+    classes = [Amenity, City, Place, Review, State, User]
+    names = ["amenities", "cities", "places", "reviews", "states", "users"]
 
+    num_objs = {}
+    for i in range(len(classes)):
+        num_objs[names[i]] = storage.count(classes[i])
 
-@app_views.route("/status", strict_slashes=False)
-def status_route():
-    """ str """
-    obj = {"status": "OK"}
-    return jsonify(obj)
-
-
-@app_views.route("/stats", strict_slashes=False)
-def stats_route():
-    """ str """
-    stats = {}
-    for clas in classes:
-        stats[clas] = models.storage.count(GetClass(clas))
-    return jsonify(stats)
+    return jsonify(num_objs)
